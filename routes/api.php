@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,7 @@ Route::resource('/roles',RoleController::class);
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('/logout',[AuthController::class,'logout']);
+    Route::post('/change-profile-picture',[UserController::class,"changeProfilePicture"]);
 //    Route::resource('/venues',VenueController::class);
 //    Route::resource('/categories',CategoryController::class);
 //    Route::resource('/formats',FormatController::class);

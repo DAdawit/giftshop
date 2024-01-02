@@ -44,6 +44,7 @@ class AuthController extends Controller
         // hide the pivote object from the query
         $roles = $user->roles()->get()->makeHidden('pivot');
         $user["roles"]=$roles;
+        $user['profilePicture']=null;
         return $this->success([
             'user'=>$user,
             'token'=>$user->createToken('API Token of'.$user->name)->plainTextToken,

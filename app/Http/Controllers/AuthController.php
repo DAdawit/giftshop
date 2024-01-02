@@ -23,7 +23,8 @@ class AuthController extends Controller
             return $this->error('','Credentials do not match',401);
         }
         $user= User::Where('email',$request['email'])->first();
-
+        $roles = $user->roles()->get()->makeHidden('pivot');
+        $user["roles"]=$roles;
         return $this->success([
             'user'=>$user,
             'token'=>$user->createToken('Api Token of'.$user->name)->plainTextToken
@@ -46,7 +47,7 @@ class AuthController extends Controller
         return $this->success([
             'user'=>$user,
             'token'=>$user->createToken('API Token of'.$user->name)->plainTextToken,
-        ]);
+        ], );
     }
 
     public function logout(): \Illuminate\Http\JsonResponse
@@ -59,9 +60,12 @@ class AuthController extends Controller
 
     public function verifyToken(Request $request){
         $user=$request->user('sanctum');
+
         if($request->user('sanctum')== null){
             return response('unauthorized',401);
-        }else
+        }
+            $roles = $user->roles()->get()->makeHidden('pivot');
+            $user["roles"]=$roles;
             return $user;
     }
 

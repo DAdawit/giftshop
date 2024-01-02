@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Role;
+use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    use HttpResponses;
+
     /**
      * Display a listing of the resource.
      */
